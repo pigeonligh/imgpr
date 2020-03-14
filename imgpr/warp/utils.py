@@ -1,3 +1,8 @@
+import math
+
+def rotate_vec(x, y, a):
+    return x * math.cos(a) - y * math.sin(a), x * math.sin(a) + y * math.cos(a)
+
 def fix(x, y, origin_width, origin_height):
     flag = False
     if x < 0:
