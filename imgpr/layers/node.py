@@ -7,6 +7,7 @@ class node:
     def run(self, sess):
         image = sess.feed_dict.get(self)
         if image is not None:
+            assert(image.shape[:2] == self.shape)
             return image
         image = self._run(sess) # pylint: disable=assignment-from-no-return
         sess.feed_dict[self] = image
