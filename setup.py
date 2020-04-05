@@ -11,7 +11,7 @@ setuptools.setup(
 	description="A Simple Image Process Library (for Digital Image Process Lesson)",
 	long_description=long_description,
 	long_description_content_type="text/markdown",
-	url="https://git.pigeonligh.com/pigeonligh/imgpr",
+	url="https://github.com/pigeonligh/imgpr",
 	packages=setuptools.find_packages(),
 	entry_points={},
 	classifiers=[
