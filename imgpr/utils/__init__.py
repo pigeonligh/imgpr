@@ -1,1 +1,1 @@
-from imgpr.utils.dlib import point_trans
+from .point import point_trans, gray, xy2index

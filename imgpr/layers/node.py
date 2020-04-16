@@ -2,7 +2,7 @@ import numpy as np
 
 class node:
     def __init__(self, shape):
-        self.shape = shape
+        self.shape = shape[:2]
     
     def run(self, sess):
         image = sess.feed_dict.get(self)

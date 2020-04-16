@@ -3,6 +3,7 @@ import numpy as np
 from scipy import signal
 
 import imgpr.consts as consts
+import imgpr.utils as utils
 from .node import node
 
 sobel_x = np.c_[
@@ -51,7 +52,7 @@ class seam(node):
         return self._run_seam(self._x, init_energy)
 
     def _run_seam(self, image, _init_energy):
-        image = np.dot(image[...,:], [0.299, 0.587, 0.114])
+        image = utils.gray(image)
 
         ret = np.ones(shape=(self.shape[0], self.shape[1]), dtype=int)
         ret *= self.shape[0] + self.shape[1]

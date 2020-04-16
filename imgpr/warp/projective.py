@@ -3,7 +3,7 @@ import math
 
 from .utils import fix, length
 
-def make_projective(p1, p2, p3, p4):
+def projective_matrix(p1, p2, p3, p4):
     x0, y0 = p1
     x1, y1 = p2
     x2, y2 = p3
@@ -15,8 +15,13 @@ def make_projective(p1, p2, p3, p4):
     u = np.linalg.det([[dx3, dx2], [dy3, dy2]]) / np.linalg.det([[dx1, dx2], [dy1, dy2]])
     v = np.linalg.det([[dx1, dx3], [dy1, dy3]]) / np.linalg.det([[dx1, dx2], [dy1, dy2]])
 
-    mat = np.array([[x1 - x0 + x1 * u, y1 - y0 + y1 * u, u], [x2 - x0 + x2 * v, y2 - y0 + y2 * v, v], [x0, y0, 1]])
-    mat = np.linalg.inv(mat)
+    return np.array([[x1 - x0 + x1 * u, y1 - y0 + y1 * u, u], [x2 - x0 + x2 * v, y2 - y0 + y2 * v, v], [x0, y0, 1]])
+
+def make_projective(p1, p2, p3, p4):
+    return make_projective_by_matrix(projective_matrix(p1, p2, p3, p4))
+
+def make_projective_by_matrix(matrix):
+    mat = np.linalg.inv(matrix)
 
     def projective(x, y, origin_width, origin_height, new_width, new_height):
         e = np.matmul(np.array([x, y, 1]), mat)

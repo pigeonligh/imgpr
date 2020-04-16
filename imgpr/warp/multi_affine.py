@@ -2,6 +2,7 @@ import numpy as np
 from scipy.spatial import Delaunay
 
 from .utils import fix
+from .affine import affine_matrix
 
 class MultiAffine:
     def __init__(self, origin_points, new_points, triangulation=None):
@@ -18,11 +19,8 @@ class MultiAffine:
         self.affines = []
 
         for triangle in triangulation.simplices:
-            oa, ob, oc = self.origin_points[triangle]
-            na, nb, nc = self.new_points[triangle]
-
-            mat1 = np.array([[*(ob - oa), 0], [*(oc - oa), 0], [*oa, 1]])
-            mat2 = np.array([[*(nb - na), 0], [*(nc - na), 0], [*na, 1]])
+            mat1 = affine_matrix(*self.origin_points[triangle])
+            mat2 = affine_matrix(*self.new_points[triangle])
             affine = np.matmul(np.linalg.inv(mat2), mat1)
             self.affines.append(affine)
 

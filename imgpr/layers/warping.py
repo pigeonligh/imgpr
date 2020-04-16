@@ -5,6 +5,7 @@ from .node import node
 class warping(node):
     def __init__(self, x, shape, func, fix_color=None):
         super().__init__(shape)
+        shape = self.shape
 
         self._x = x
         self.fix_color = fix_color
@@ -41,10 +42,8 @@ class warping(node):
                     continue
                 if pos_y < 0 or pos_y >= image.shape[1]:
                     continue
-                ret[i, j, 0] = image[pos_x, pos_y, 0]
-                ret[i, j, 1] = image[pos_x, pos_y, 1]
-                ret[i, j, 2] = image[pos_x, pos_y, 2]
+                ret[i, j, :] = image[pos_x, pos_y, :]
                 if self._flag[i, j] and self.fix_color:
-                    ret[i, j, 0], ret[i, j, 1], ret[i, j, 2] = self.fix_color
+                    ret[i, j, :] = self.fix_color
 
         return ret
